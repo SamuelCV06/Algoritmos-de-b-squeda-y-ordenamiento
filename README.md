@@ -1,1 +1,1 @@
-"# Algoritmos-de-b-squeda-y-ordenamiento" 
+"# Algoritmos-de-busqueda-y-ordenamiento" 
