@@ -133,6 +133,7 @@ public class AlgoritmosDeBusqueda
                 else
                 {
                     System.out.println("El valor no se encuentra en la lista");
+                    terminarCiclo = true;
                 }
             }
     }
@@ -147,8 +148,4 @@ public class AlgoritmosDeBusqueda
         }
     }
 
-    public int getCuantosNodos()
-    {
-        return cantidadDeNodos;
-    }
 }

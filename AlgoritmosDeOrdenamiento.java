@@ -1,3 +1,6 @@
+
+import javax.lang.model.element.ElementVisitor;
+
 public class AlgoritmosDeOrdenamiento 
 {
     public AlgoritmosDeOrdenamiento()
@@ -28,7 +31,7 @@ public class AlgoritmosDeOrdenamiento
                 terminarBucle = true;
             }
         }
-        System.err.print("{");
+        System.out.print("{");
         for(int e = 0; e < length; e++)
         {
             System.out.print(lista[e]);
@@ -37,63 +40,133 @@ public class AlgoritmosDeOrdenamiento
                 System.out.print(",");
             }
         }
-        System.err.print("}\n");
+        System.out.print("}\n");
     }
 
-    /* No logre hacer que funcione.
-    public void ordenarBurbujaLista(Nodo elNodo, int cuantosNodos)
+    public void ordenarBurbujaLista(Nodo elNodo)
     {
-        boolean terminarBucle = false;
-        Nodo comodin = null;
-        Nodo comodinSegundo = null;
-        while(terminarBucle == false)
+        int contador = 0;
+        Nodo comodin = elNodo;
+        int variable;
+        Nodo punteroUno;
+        Nodo punteroDos;
+
+        while(comodin != null)
         {
-            Nodo pivote = elNodo;
-            int finallizar = 0;
-            do
-            {   
-                if(pivote.getSiguiente() != null && pivote.getValorNodo() > pivote.getSiguiente().getValorNodo() )
+            contador ++;
+            comodin = comodin.getSiguiente();
+        }
+
+        for(int i = 0; i < contador; i++)
+        {
+            punteroUno = elNodo;
+            punteroDos = elNodo.getSiguiente();
+            for(int j = 0; j < contador - i; j++)
+            {
+                if(punteroUno.getValorNodo() > punteroDos.getValorNodo())
                 {
-                    comodin = pivote;
-                    comodinSegundo = pivote.getSiguiente().getSiguiente();
-                    pivote = pivote.getSiguiente();
-                    pivote.setSiguiente(comodin);
-                    comodin.setSiguiente(comodinSegundo);
-                    finallizar++;
+                variable = punteroUno.getValorNodo();
+                punteroUno.setValorNodo(punteroDos.getValorNodo());
+                punteroDos.setValorNodo(variable);
                 }
-                if(pivote.getSiguiente() != null)
+                if(punteroDos.getSiguiente() != null)
                 {
-                    pivote = pivote.getSiguiente();
+                    punteroUno = punteroUno.getSiguiente();
+                    punteroDos = punteroDos.getSiguiente();
                 }
             }
-            while(pivote.getSiguiente() != null);
-            if (finallizar == 0)
+        }
+
+        System.out.print("{");
+        for(int e = 0; e < contador; e++)
+        {
+            if(e == 0)
             {
-                Nodo otro = elNodo;
-                System.err.print("{");
-                for(int e = 0; e < cuantosNodos; e++)
-                {
-                    if(otro != null)
-                    {
-                        System.out.print(otro.getValorNodo());
-                        if(e != cuantosNodos-1)
-                        {
-                            System.out.print(",");
-                        }
-                        if(otro.getSiguiente() != null)
-                        {
-                            otro = otro.getSiguiente();
-                        }
-                    }
-                }
-                System.out.print("}\n");
-                terminarBucle = true;
+                comodin = elNodo;
+            }
+            System.out.print(+ comodin.getValorNodo());
+            comodin = comodin.getSiguiente();
+            if(e == contador-1)
+            {
+                System.out.print("}");
             }
             else
             {
-                ordenarBurbujaLista(elNodo, cuantosNodos);
+                System.out.print(",");
+
             }
         }
+        System.out.println("");
     }
-    */
+
+
+    public void ordenarPorInserciónArray(int [] lista)
+    {
+        int variable;
+        for (int i = 1; i < lista.length; i++) 
+        {
+            variable = lista[i];
+            for(int j = i-1; j >= 0 && lista[j] > variable; j--)
+            {
+                lista[j+1] = lista[j];
+                lista[j] = variable;
+            }
+        }
+        System.out.print("{");
+        for(int e = 0; e < lista.length; e++)
+        {
+            System.out.print(lista[e]);
+            if(e != lista.length-1)
+            {
+                System.out.print(",");
+            }
+        }
+        System.out.print("}\n");
+    }
+
+    public void OrdenarPorSeleccion(int [] lista)
+    {
+        int [] listaOrdenada = new int[lista.length];
+        int [] listaDesordenada = lista;
+        int [] pivote = new int[lista.length];
+        int ubicaciónDelValor = 0;
+        int elementoMenor = lista[0];
+        for(int i = 0; i < lista.length; i++)
+        {
+            for(int j = 0; j < listaDesordenada.length; j++)
+            {
+                if(listaDesordenada[j] < elementoMenor)
+                {
+                    elementoMenor = lista[j];
+                    ubicaciónDelValor = j;
+                }
+            }
+            pivote = listaDesordenada;
+            listaDesordenada = new int[pivote.length - 1];
+            for(int e = 0; e < pivote.length; e++)
+            {
+                if(e != ubicaciónDelValor)
+                {
+                    listaDesordenada[e] = pivote[e]; 
+                }
+                else
+                {
+                    e--;
+                }
+            }
+            listaOrdenada[i] = elementoMenor;
+            elementoMenor = listaDesordenada[0];
+        }
+        lista = listaOrdenada;
+        System.out.print("{");
+        for(int e = 0; e < lista.length; e++)
+        {
+            System.out.print(lista[e]);
+            if(e != lista.length-1)
+            {
+                System.out.print(",");
+            }
+        }
+        System.out.print("}\n");
+    }
 }
